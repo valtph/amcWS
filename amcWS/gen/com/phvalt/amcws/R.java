@@ -26,7 +26,7 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout1=0x7f080000;
-        public static final int action_settings=0x7f08000d;
+        public static final int action_settings=0x7f08000c;
         public static final int editText1=0x7f080003;
         public static final int editText2=0x7f080005;
         public static final int editText3=0x7f080007;
@@ -37,8 +37,7 @@ public final class R {
         public static final int textView3=0x7f080006;
         public static final int textView4=0x7f080008;
         public static final int textview1=0x7f080002;
-        public static final int tryReponse=0x7f08000c;
-        public static final int tryRequest=0x7f08000b;
+        public static final int tryReponse=0x7f08000b;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

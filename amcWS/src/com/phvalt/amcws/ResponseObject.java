@@ -98,6 +98,25 @@ public class ResponseObject implements KvmSerializable{
 	}
 	@Override
 	public void setProperty(int index, Object value) {
+		
+		switch(index){
+		case 0:position = Integer.parseInt(value.toString());
+		case 1:catalogName = value.toString();
+		case 2:productName = value.toString();
+		case 3:productImage = value.toString();
+		case 4:productURL = value.toString();
+		case 5:catalogId = Integer.parseInt(value.toString());
+		case 6:familyId = Integer.parseInt(value.toString());;
+		case 7:itemCode = value.toString();
+		case 8:productAttenuation = Double.parseDouble(value.toString());
+		case 9:productStiffness = value.toString();
+		case 10:loadPercentage = Double.parseDouble(value.toString());
+		}
+		
+	}
+	
+public void setPropertyS(int index, String value) {
+		
 		switch(index){
 		case 0:position = Integer.parseInt(value.toString());
 		case 1:catalogName = value.toString();
@@ -158,5 +177,7 @@ public class ResponseObject implements KvmSerializable{
 		this.loadPercentage = loadPercentage;
 	}
 
-	
+	public String toString(){
+		return (this.position +" - "+this.catalogName+" - "+this.productName+" - "+this.productImage+" - "+this.productURL+" - "+this.catalogId+" - "+this.familyId+" - "+this.itemCode+" - "+this.productAttenuation+" - "+this.productStiffness+" - "+this.loadPercentage);
+	}
 }

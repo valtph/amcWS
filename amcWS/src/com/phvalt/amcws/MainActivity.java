@@ -29,10 +29,11 @@ public class MainActivity extends Activity {
 
 	private static final String TAG = "WSTEST"; // Logging purpose
 	private EditText paramMass,paramBuffer, paramFreq, paramAtt;
-	private TextView tryResult,tryRequest;
+	private TextView tryResult;
 	private int idioma = 3;
 	private Button srchBtn;
 	private RequestObject requestObj;
+	private ResponseObject aResult;
 	private ArrayList<ResponseObject> fullResponse;
 	
 	private final String NAMESPACE = "http://tempuri.org/";
@@ -51,8 +52,7 @@ public class MainActivity extends Activity {
         paramAtt = (EditText)findViewById(R.id.editText4);
         srchBtn = (Button)findViewById(R.id.srchBtn);
         tryResult = (TextView)findViewById(R.id.tryReponse);
-        tryRequest = (TextView)findViewById(R.id.tryRequest);
-        
+       
         srchBtn.setOnClickListener(new OnClickListener() {	
 			@Override
 			public void onClick(View v) {
@@ -67,6 +67,8 @@ public class MainActivity extends Activity {
 				task.execute();
 			}
 		});
+        
+       
     }
 
 	private void postRequest(RequestObject requestObj) {
@@ -124,16 +126,29 @@ public class MainActivity extends Activity {
 			String howMany =Integer.toString(response.getPropertyCount()); 
 			Log.i(TAG,"number of results" +howMany);
 			Log.i(TAG, response.getProperty(0).toString());
-			Log.i(TAG, response.getProperty(1).toString());
+			//Log.i(TAG, response.getProperty(1).toString());
 			
-	/**		for (int i=0; i<response.getPropertyCount();i++){
+		for (int i=0; i<response.getPropertyCount();i++){
 				SoapObject soapResult = (SoapObject) response.getProperty(i);
 				ResponseObject aResult = new ResponseObject();
-				for(int j=0;j<soapResult.getPropertyCount();j++){
-					aResult.setProperty(j, soapResult.getProperty(j));
-				}
-		}**/	
-			
+				
+					//Log.i(TAG,soapResult.getProperty(j).toString());
+					aResult.setPosition(Integer.parseInt(soapResult.getProperty(0).toString()));
+					aResult.setCatalogName(soapResult.getProperty(1).toString());
+					aResult.setProductName(soapResult.getProperty(3).toString());
+					aResult.setProductImage(soapResult.getProperty(3).toString());
+					aResult.setProductURL(soapResult.getProperty(4).toString());
+					aResult.setCatalogId(Integer.parseInt(soapResult.getProperty(5).toString()));
+					aResult.setFamilyId(Integer.parseInt(soapResult.getProperty(6).toString()));
+					aResult.setItemCode(soapResult.getProperty(7).toString());
+					aResult.setProductAttenuation(Double.parseDouble(soapResult.getProperty(8).toString()));
+					aResult.setProductStiffness(soapResult.getProperty(9).toString());
+					aResult.setLoadPercentage(Double.parseDouble(soapResult.getProperty(10).toString()));
+					
+				fullResponse.add(aResult);	
+				
+		}	
+			Log.i(TAG,fullResponse.toString());	
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -141,11 +156,12 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
+		
 		
 	}
 	
-	private class AsyncCallWS extends AsyncTask<Double, Void, Void>{
-
+	public class AsyncCallWS extends AsyncTask<Double, Void, Void>{
 		@Override
 		protected Void doInBackground(Double... params) {
 			postRequest(requestObj);
@@ -153,12 +169,8 @@ public class MainActivity extends Activity {
 		}
 		@Override
 		protected void onProgressUpdate(Void... values) {
-		}
-		
-		protected void onFinish(Void...String){
-			
+			//to Fill to show result in UI thread.
 		}
 	}
-	
-   
+
 }
