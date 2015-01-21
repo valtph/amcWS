@@ -24,152 +24,250 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
-
 public class MainActivity extends Activity {
 
 	private static final String TAG = "WSTEST"; // Logging purpose
-	private EditText paramMass,paramBuffer, paramFreq, paramAtt;
+	private EditText paramMass, paramBuffer, paramFreq, paramAtt;
 	private TextView tryResult;
 	private int idioma = 3;
 	private Button srchBtn;
 	private RequestObject requestObj;
 	private ResponseObject aResult;
 	private ArrayList<ResponseObject> fullResponse;
-	
+
 	private final String NAMESPACE = "http://tempuri.org/";
 	private final String URL = "http://www.mecanocaucho.com/gestor/wsandroid.asmx";
 	private final String SOAP_ACTION1 = "http://tempuri.org/SearchForProductsInt";
 	private final String METHOD_NAME1 = "SearchForProductsInt";
-	
+
 	@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    
-        paramFreq = (EditText)findViewById(R.id.editText1);
-        paramMass = (EditText)findViewById(R.id.editText2);
-        paramBuffer = (EditText)findViewById(R.id.editText3);
-        paramAtt = (EditText)findViewById(R.id.editText4);
-        srchBtn = (Button)findViewById(R.id.srchBtn);
-        tryResult = (TextView)findViewById(R.id.tryReponse);
-       
-        srchBtn.setOnClickListener(new OnClickListener() {	
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+
+		paramFreq = (EditText) findViewById(R.id.editText1);
+		paramMass = (EditText) findViewById(R.id.editText2);
+		paramBuffer = (EditText) findViewById(R.id.editText3);
+		paramAtt = (EditText) findViewById(R.id.editText4);
+		srchBtn = (Button) findViewById(R.id.srchBtn);
+		tryResult = (TextView) findViewById(R.id.tryReponse);
+
+		srchBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-			/**Get Parameters**/
-				requestObj = new RequestObject(
-						Integer.parseInt(paramMass.getText().toString()),
-						Integer.parseInt(paramBuffer.getText().toString()),
-						Integer.parseInt(paramFreq.getText().toString()),
-						Integer.parseInt(paramAtt.getText().toString())
-						);
+				/** Get Parameters **/
+				requestObj = new RequestObject(Integer.parseInt(paramMass
+						.getText().toString()), Integer.parseInt(paramBuffer
+						.getText().toString()), Integer.parseInt(paramFreq
+						.getText().toString()), Integer.parseInt(paramAtt
+						.getText().toString()));
 				AsyncCallWS task = new AsyncCallWS();
 				task.execute();
 			}
 		});
-        
-       
-    }
 
-	private void postRequest(RequestObject requestObj) {
-		SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME1);
-		
-		//add the requestObj
-		PropertyInfo totalMass = new PropertyInfo();
-		totalMass.setName("TotalMass");
-		totalMass.setValue(requestObj.getProperty(0));
-		totalMass.setType(PropertyInfo.INTEGER_CLASS);
-		request.addProperty(totalMass);
-		
-		PropertyInfo buffersNo = new PropertyInfo();
-		buffersNo.setName("BuffersNo");
-		buffersNo.setValue(requestObj.getProperty(1));
-		buffersNo.setType(PropertyInfo.INTEGER_CLASS);
-		request.addProperty(buffersNo);
-		
-		PropertyInfo frequency = new PropertyInfo();
-		frequency.setName("Frequency");
-		frequency.setValue(requestObj.getProperty(2));
-		frequency.setType(PropertyInfo.INTEGER_CLASS);
-		request.addProperty(frequency);
-		
-		PropertyInfo attenuation = new PropertyInfo();
-		attenuation.setName("Attenuation");
-		attenuation.setValue(requestObj.getProperty(3));
-		attenuation.setType(PropertyInfo.INTEGER_CLASS);
-		request.addProperty(attenuation);
-		
-		PropertyInfo lang = new PropertyInfo();
-		lang.setName("ididioma");
-		lang.setValue(idioma);
-		lang.setType(PropertyInfo.INTEGER_CLASS);
-		request.addProperty(lang);
-		
-		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-				SoapEnvelope.VER11);
-		
-		envelope.dotNet=true;
-		envelope.setOutputSoapObject(request);
-		
-		HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
-		androidHttpTransport.debug =true;
-		
-		fullResponse = new ArrayList<ResponseObject>();
-		
-		try {
-			androidHttpTransport.call(SOAP_ACTION1,envelope);
-			Log.i(TAG, androidHttpTransport.requestDump);
-			
-			SoapObject response=(SoapObject) envelope.getResponse();
-			Log.i(TAG,androidHttpTransport.responseDump);
-			
-			String howMany =Integer.toString(response.getPropertyCount()); 
-			Log.i(TAG,"number of results" +howMany);
-			Log.i(TAG, response.getProperty(0).toString());
-			//Log.i(TAG, response.getProperty(1).toString());
-			
-		for (int i=0; i<response.getPropertyCount();i++){
-				SoapObject soapResult = (SoapObject) response.getProperty(i);
-				ResponseObject aResult = new ResponseObject();
-				
-					//Log.i(TAG,soapResult.getProperty(j).toString());
-					aResult.setPosition(Integer.parseInt(soapResult.getProperty(0).toString()));
-					aResult.setCatalogName(soapResult.getProperty(1).toString());
-					aResult.setProductName(soapResult.getProperty(3).toString());
-					aResult.setProductImage(soapResult.getProperty(3).toString());
-					aResult.setProductURL(soapResult.getProperty(4).toString());
-					aResult.setCatalogId(Integer.parseInt(soapResult.getProperty(5).toString()));
-					aResult.setFamilyId(Integer.parseInt(soapResult.getProperty(6).toString()));
-					aResult.setItemCode(soapResult.getProperty(7).toString());
-					aResult.setProductAttenuation(Double.parseDouble(soapResult.getProperty(8).toString()));
-					aResult.setProductStiffness(soapResult.getProperty(9).toString());
-					aResult.setLoadPercentage(Double.parseDouble(soapResult.getProperty(10).toString()));
-					
-				fullResponse.add(aResult);	
-				
-		}	
-			Log.i(TAG,fullResponse.toString());	
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (XmlPullParserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
-		
-		
 	}
-	
-	public class AsyncCallWS extends AsyncTask<Double, Void, Void>{
+
+	/**
+	 * private void postRequest(RequestObject requestObj) { SoapObject request =
+	 * new SoapObject(NAMESPACE, METHOD_NAME1);
+	 * 
+	 * //add the requestObj PropertyInfo totalMass = new PropertyInfo();
+	 * totalMass.setName("TotalMass");
+	 * totalMass.setValue(requestObj.getProperty(0));
+	 * totalMass.setType(PropertyInfo.INTEGER_CLASS);
+	 * request.addProperty(totalMass);
+	 * 
+	 * PropertyInfo buffersNo = new PropertyInfo();
+	 * buffersNo.setName("BuffersNo");
+	 * buffersNo.setValue(requestObj.getProperty(1));
+	 * buffersNo.setType(PropertyInfo.INTEGER_CLASS);
+	 * request.addProperty(buffersNo);
+	 * 
+	 * PropertyInfo frequency = new PropertyInfo();
+	 * frequency.setName("Frequency");
+	 * frequency.setValue(requestObj.getProperty(2));
+	 * frequency.setType(PropertyInfo.INTEGER_CLASS);
+	 * request.addProperty(frequency);
+	 * 
+	 * PropertyInfo attenuation = new PropertyInfo();
+	 * attenuation.setName("Attenuation");
+	 * attenuation.setValue(requestObj.getProperty(3));
+	 * attenuation.setType(PropertyInfo.INTEGER_CLASS);
+	 * request.addProperty(attenuation);
+	 * 
+	 * PropertyInfo lang = new PropertyInfo(); lang.setName("ididioma");
+	 * lang.setValue(idioma); lang.setType(PropertyInfo.INTEGER_CLASS);
+	 * request.addProperty(lang);
+	 * 
+	 * SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+	 * SoapEnvelope.VER11);
+	 * 
+	 * envelope.dotNet=true; envelope.setOutputSoapObject(request);
+	 * 
+	 * HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+	 * androidHttpTransport.debug =true;
+	 * 
+	 * fullResponse = new ArrayList<ResponseObject>();
+	 * 
+	 * try { androidHttpTransport.call(SOAP_ACTION1,envelope); Log.i(TAG,
+	 * androidHttpTransport.requestDump);
+	 * 
+	 * SoapObject response=(SoapObject) envelope.getResponse();
+	 * //Log.i(TAG,androidHttpTransport.responseDump);
+	 * 
+	 * String howMany =Integer.toString(response.getPropertyCount());
+	 * Log.i(TAG,"number of results" +howMany); //Log.i(TAG,
+	 * response.getProperty(0).toString()); //First object AnyType{}
+	 * //Log.i(TAG, response.getProperty(1).toString()); //Second object
+	 * AnyType{}
+	 * 
+	 * for (int i=0; i<response.getPropertyCount();i++){ SoapObject soapResult =
+	 * (SoapObject) response.getProperty(i); Log.i(TAG,soapResult.toString());
+	 * 
+	 * ResponseObject aResult = new ResponseObject();
+	 * 
+	 * aResult.setPosition(Integer.parseInt(soapResult.getProperty("Counter").
+	 * toString()));
+	 * aResult.setCatalogName(soapResult.getProperty("CatalogName").toString());
+	 * aResult.setProductName(soapResult.getProperty(3).toString());
+	 * aResult.setProductImage(soapResult.getProperty(3).toString());
+	 * aResult.setProductURL(soapResult.getProperty(4).toString());
+	 * aResult.setCatalogId
+	 * (Integer.parseInt(soapResult.getProperty(5).toString()));
+	 * aResult.setFamilyId
+	 * (Integer.parseInt(soapResult.getProperty(6).toString()));
+	 * aResult.setItemCode(soapResult.getProperty(7).toString());
+	 * aResult.setProductAttenuation
+	 * (Double.parseDouble(soapResult.getProperty(8).toString()));
+	 * aResult.setProductStiffness(soapResult.getProperty(9).toString());
+	 * aResult.setLoadPercentage(Double.parseDouble(soapResult.getProperty(10).
+	 * toString()));
+	 * 
+	 * fullResponse.add(aResult); Log.i(TAG,"liste " +aResult.toString());
+	 * 
+	 * } Log.i(TAG,fullResponse.toString()); } catch (IOException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); } catch
+	 * (XmlPullParserException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); }
+	 * 
+	 * 
+	 * 
+	 * }
+	 **/
+
+	public class AsyncCallWS extends AsyncTask<Double, Integer, Void> {
 		@Override
 		protected Void doInBackground(Double... params) {
-			postRequest(requestObj);
+			// postRequest(requestObj);
+
+			SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME1);
+
+			// add the requestObj
+			PropertyInfo totalMass = new PropertyInfo();
+			totalMass.setName("TotalMass");
+			totalMass.setValue(requestObj.getProperty(0));
+			totalMass.setType(PropertyInfo.INTEGER_CLASS);
+			request.addProperty(totalMass);
+
+			PropertyInfo buffersNo = new PropertyInfo();
+			buffersNo.setName("BuffersNo");
+			buffersNo.setValue(requestObj.getProperty(1));
+			buffersNo.setType(PropertyInfo.INTEGER_CLASS);
+			request.addProperty(buffersNo);
+
+			PropertyInfo frequency = new PropertyInfo();
+			frequency.setName("Frequency");
+			frequency.setValue(requestObj.getProperty(2));
+			frequency.setType(PropertyInfo.INTEGER_CLASS);
+			request.addProperty(frequency);
+
+			PropertyInfo attenuation = new PropertyInfo();
+			attenuation.setName("Attenuation");
+			attenuation.setValue(requestObj.getProperty(3));
+			attenuation.setType(PropertyInfo.INTEGER_CLASS);
+			request.addProperty(attenuation);
+
+			PropertyInfo lang = new PropertyInfo();
+			lang.setName("ididioma");
+			lang.setValue(idioma);
+			lang.setType(PropertyInfo.INTEGER_CLASS);
+			request.addProperty(lang);
+
+			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+					SoapEnvelope.VER11);
+
+			envelope.dotNet = true;
+			envelope.setOutputSoapObject(request);
+
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+			androidHttpTransport.debug = true;
+
+			fullResponse = new ArrayList<ResponseObject>();
+
+			try {
+				androidHttpTransport.call(SOAP_ACTION1, envelope);
+				Log.i(TAG, androidHttpTransport.requestDump);
+
+				SoapObject response = (SoapObject) envelope.getResponse();
+				// Log.i(TAG,androidHttpTransport.responseDump);
+
+				String howMany = Integer.toString(response.getPropertyCount());
+				Log.i(TAG, "number of results" + howMany);
+				// Log.i(TAG, response.getProperty(0).toString()); //First
+				// object AnyType{}
+				// Log.i(TAG, response.getProperty(1).toString()); //Second
+				// object AnyType{}
+
+				for (int i = 0; i < response.getPropertyCount(); i++) {
+					SoapObject soapResult = (SoapObject) response
+							.getProperty(i);
+					// Log.i(TAG,soapResult.toString());
+
+					// Convert SoapResult to ResponseObject
+					ResponseObject aResult = new ResponseObject();
+
+					aResult.setPosition(Integer.parseInt(soapResult
+							.getProperty("Counter").toString()));
+					aResult.setCatalogName(soapResult
+							.getProperty("CatalogName").toString());
+					aResult.setProductName(soapResult.getProperty(3).toString());
+					aResult.setProductImage(soapResult.getProperty(3)
+							.toString());
+					aResult.setProductURL(soapResult.getProperty(4).toString());
+					aResult.setCatalogId(Integer.parseInt(soapResult
+							.getProperty(5).toString()));
+					aResult.setFamilyId(Integer.parseInt(soapResult
+							.getProperty(6).toString()));
+					aResult.setItemCode(soapResult.getProperty(7).toString());
+					aResult.setProductAttenuation(Double.parseDouble(soapResult
+							.getProperty(8).toString()));
+					aResult.setProductStiffness(soapResult.getProperty(9)
+							.toString());
+					aResult.setLoadPercentage(Double.parseDouble(soapResult
+							.getProperty(10).toString()));
+
+					fullResponse.add(aResult);
+					publishProgress(i);
+					Log.i(TAG, "liste " + aResult.toString());
+
+				}
+				Log.i(TAG, fullResponse.toString());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (XmlPullParserException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			return null;
 		}
+
 		@Override
-		protected void onProgressUpdate(Void... values) {
-			//to Fill to show result in UI thread.
+		protected void onProgressUpdate(Integer... index) {
+			tryResult.append("\n" + fullResponse.get(index[0]));
+
 		}
 	}
 
