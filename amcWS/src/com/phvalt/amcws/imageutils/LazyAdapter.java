@@ -1,15 +1,18 @@
 package com.phvalt.amcws.imageutils;
 
 import com.phvalt.amcws.R;
+import com.phvalt.amcws.activity.ShowProductListActivity;
 
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LazyAdapter extends BaseAdapter {
     
@@ -47,6 +50,9 @@ public class LazyAdapter extends BaseAdapter {
         ImageView image=(ImageView)vi.findViewById(R.id.image);
         text.setText(name[position]);
         imageLoader.DisplayImage(data[position], image);
+       
         return vi;
     }
+    
+
 }

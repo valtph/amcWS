@@ -148,7 +148,7 @@ public class MainActivity extends Activity {
 				//Log.i(TAG, "number of results" + howMany);
 				// Log.i(TAG, response.getProperty(0).toString()); //First
 				// shows object AnyType{}
-				// Log.i(TAG, response.getProperty(1).toString()); //Second
+				 Log.i(TAG, response.getProperty(17).toString()); //Second
 				// shows object AnyType{}
 
 				for (int i = 0; i < response.getPropertyCount(); i++) {

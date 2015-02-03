@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ShowProductListActivity extends Activity{
 	
@@ -46,12 +47,16 @@ public class ShowProductListActivity extends Activity{
 	        super.onDestroy();
 	    }
 	    
-	    public OnClickListener listener=new OnClickListener(){
+	 public OnClickListener listener=new OnClickListener(){
 	        @Override
 	        public void onClick(View arg0) {
 	            adapter.imageLoader.clearCache();
 	            adapter.notifyDataSetChanged();
+	            
 	        }
 	    };
+	    
+	 
+
 	
 }

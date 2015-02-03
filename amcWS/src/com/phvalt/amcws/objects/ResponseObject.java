@@ -193,11 +193,17 @@ public class ResponseObject implements KvmSerializable,Parcelable{
 	public int getProductIndex(){
 		return this.position;
 	}
+	
+
+	public String getProductURL() {
+		return productURL;
+	}
 
 	public String toString(){
 		return " result : "+this.position +" \n "
 			   +"catalog : "+ this.catalogName+" \n "
 			   +"itemId : "+this.itemCode+" \n "
+			   +this.productURL+"\n"
 			   +"attenuation : "+this.productAttenuation+" - " +"load :"+this.loadPercentage+"%"+" - " +"stiffness : "+this.productStiffness;
 			  
 	}
