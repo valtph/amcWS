@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Ph\AndroidstudioProjects\amcWS\app\libs\JLargeArrays-1.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ec3664bdd4f2797b6c24eee16987b924b6d44547">
+        <dex dex="C:\Users\Ph\AndroidstudioProjects\amcWS\app\build\intermediates\pre-dexed\debug\JLargeArrays-1.3-e82b809a39355386fb0547d2d1199c344ab4c64d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Ph\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.0\support-annotations-21.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
+        <dex dex="C:\Users\Ph\AndroidstudioProjects\amcWS\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-b494529d7acb2bd5caa9e14c1b3dfb4611f0f388.jar" />
+    </item>
+    <item
+        jar="C:\Users\Ph\AndroidstudioProjects\amcWS\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\libs\internal_impl-21.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0">
+        <dex dex="C:\Users\Ph\AndroidstudioProjects\amcWS\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-bbbdec38461e54db88431a1460e755bac9cec0b4.jar" />
+    </item>
+    <item
+        jar="C:\Users\Ph\AndroidstudioProjects\amcWS\app\libs\JTransforms-3.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="79477aec6929cd64cd863d6ac59c2445d00239a3">
+        <dex dex="C:\Users\Ph\AndroidstudioProjects\amcWS\app\build\intermediates\pre-dexed\debug\JTransforms-3.0-25b1ec911ab5cefde0e2b21be128818e7490a0b8.jar" />
+    </item>
+    <item
+        jar="C:\Users\Ph\AndroidstudioProjects\amcWS\app\libs\achartengine-1.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b2bb0af9f390c0edd4d7d95f613f38da3abe0144">
+        <dex dex="C:\Users\Ph\AndroidstudioProjects\amcWS\app\build\intermediates\pre-dexed\debug\achartengine-1.0.0-6701b171f3c8524ed49b63faccb56a21e8451c19.jar" />
+    </item>
+    <item
+        jar="C:\Users\Ph\AndroidstudioProjects\amcWS\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="686344a780033e4ba22b926cd225f8d4941247e6">
+        <dex dex="C:\Users\Ph\AndroidstudioProjects\amcWS\app\build\intermediates\pre-dexed\debug\classes-ccf788a9ba9d4f93ff7a8f5e2cb035197398d0d5.jar" />
+    </item>
+    <item
+        jar="C:\Users\Ph\AndroidstudioProjects\amcWS\app\libs\ksoap2-android-assembly-2.4-jar-with-dependencies.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e8796346a9191a019e936210a2dc50662c57594b">
+        <dex dex="C:\Users\Ph\AndroidstudioProjects\amcWS\app\build\intermediates\pre-dexed\debug\ksoap2-android-assembly-2.4-jar-with-dependencies-8130e2b28a6e655f5c3268c45ca4f45c426d2751.jar" />
+    </item>
+
+</items>
