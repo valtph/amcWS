@@ -12,9 +12,9 @@
   	  android:id="@+id/text"
   	  android:layout_width="fill_parent"
 	  android:layout_height="wrap_content"
-	  android:layout_weight="0.6" 
+	  android:layout_weight="0.6"
 	  android:layout_gravity="left|center_vertical" 
 	  android:textSize="20dip" 
 	  android:layout_marginLeft="10dip"
-	  android:autoLink="all"/>
+      android:autoLink="all"/>
 </LinearLayout>

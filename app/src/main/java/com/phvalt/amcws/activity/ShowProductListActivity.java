@@ -31,11 +31,11 @@ public class ShowProductListActivity extends Activity{
 		/**Reconstruct List of response object and prepare display**/
 		String[] urls = new String[products.size()+1];
 		String[] names= new String[products.size()+1];
-		for(ResponseObject obj: products){
+        for(ResponseObject obj: products){
 			urls[obj.getProductIndex()]=obj.getProductImage();
 			names[obj.getProductIndex()]=obj.toString();
 		}
-		
+
 		list=(ListView)findViewById(R.id.list);
         adapter=new LazyAdapter(this, urls, names);
         list.setAdapter(adapter);

@@ -13,7 +13,7 @@ import com.phvalt.amcws.R;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
-    ImageButton measureActivityLauncher, productFinderActivityLauncher;
+    ImageButton measureActivityLauncher,measureActivity2Launcher,measureActivity3Launcher, productFinderActivityLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +21,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
 
         measureActivityLauncher=(ImageButton)findViewById(R.id.measureActivityLauncher);
+        measureActivity2Launcher=(ImageButton)findViewById(R.id.measureActivity2Launcher);
+        measureActivity3Launcher=(ImageButton)findViewById(R.id.measureActivity3Launcher);
+
         productFinderActivityLauncher=(ImageButton)findViewById(R.id.productFinderActivityLauncher);
 
         measureActivityLauncher.setOnClickListener(this);
+        measureActivity2Launcher.setOnClickListener(this);
+        measureActivity3Launcher.setOnClickListener(this);
         productFinderActivityLauncher.setOnClickListener(this);
     }
 
@@ -34,6 +39,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
         switch(v.getId()){
             case R.id.measureActivityLauncher:
                 i=new Intent(MainActivity.this, AccelerometerDisplay.class);
+                MainActivity.this.startActivity(i);
+                break;
+
+            case R.id.measureActivity2Launcher:
+                i=new Intent(MainActivity.this, AccelerometerDisplay2.class);
+                MainActivity.this.startActivity(i);
+                break;
+
+            case R.id.measureActivity3Launcher:
+                i=new Intent(MainActivity.this, AccelerometerDisplay3.class);
                 MainActivity.this.startActivity(i);
                 break;
 

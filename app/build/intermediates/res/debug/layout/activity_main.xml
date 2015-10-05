@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:id="@+id/measureActivityLauncher"
             android:layout_weight="0.5"
-            android:background="@drawable/chart" />
+            android:background="@drawable/chart1" />
 
         <ImageButton
             android:layout_width="match_parent"
@@ -38,6 +38,19 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="0.5">
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/measureActivity2Launcher"
+            android:layout_weight="0.5"
+            android:background="@drawable/chart2" />
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/measureActivity3Launcher"
+            android:layout_weight="0.5"
+            android:background="@drawable/chart3" />
     </LinearLayout>
 </LinearLayout>
 <!-- From: file:/C:/Users/Ph/AndroidstudioProjects/amcWS/app/src/main/res/layout/activity_main.xml -->

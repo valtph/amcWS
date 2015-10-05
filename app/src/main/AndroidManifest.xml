@@ -41,9 +41,22 @@
             android:name="com.phvalt.amcws.activity.AccelerometerDisplay"
             android:label="@string/app_name"
             android:screenOrientation="landscape">
-            </activity>
+        </activity>
+
         <activity
-            android:name="com.phvalt.amcws.activity.ShowSpectrumActivity"
+            android:name="com.phvalt.amcws.activity.AccelerometerDisplay2"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape">
+        </activity>
+
+        <activity
+        android:name="com.phvalt.amcws.activity.AccelerometerDisplay3"
+        android:label="@string/app_name"
+        android:screenOrientation="landscape">
+        </activity>
+
+        <activity
+            android:name=".activity.ShowSpectrumActivity"
             android:screenOrientation="landscape"
             android:label="@string/app_name" >
         </activity>

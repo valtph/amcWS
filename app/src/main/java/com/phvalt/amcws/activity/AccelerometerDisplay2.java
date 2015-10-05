@@ -39,8 +39,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class AccelerometerDisplay extends Activity implements OnClickListener {
-
+public class AccelerometerDisplay2 extends Activity implements OnClickListener {
+//For Y axis
 	private static final String TAG = "Accelerometer Graph"; // Logging purpose
 	/**Sensor Variables**/
 	private float[] mCurrents = new float[3];
@@ -110,9 +110,9 @@ public class AccelerometerDisplay extends Activity implements OnClickListener {
 					sensorData.add(data);
 					index=index+1;
 				}
-				xCoor.setText("X : " + event.values[0]+";");
+				//xCoor.setText("X : " + event.values[0]+";");
                 //Use only one axis for the data
-				//yCoor.setText("Y : " + event.values[1]+";");
+				yCoor.setText("Y : " + event.values[1]+";");
 				//zCoor.setText("Z : " + event.values[2]+";");
 				synchronized (this) {
 					/**Synchronized thread if queue size is greater than
@@ -155,8 +155,8 @@ public class AccelerometerDisplay extends Activity implements OnClickListener {
 
 		setContentView(R.layout.accelerometer_display);
 
-		xCoor = (TextView) findViewById(R.id.x_label); // create object
-		//yCoor = (TextView) findViewById(R.id.y_label);
+		//xCoor = (TextView) findViewById(R.id.x_label); // create object
+		yCoor = (TextView) findViewById(R.id.y_label);
 		//zCoor = (TextView) findViewById(R.id.z_label);
 		saveButton = (Button) findViewById(R.id.saveButton);
 		saveButton.setOnClickListener(this);
@@ -169,8 +169,8 @@ public class AccelerometerDisplay extends Activity implements OnClickListener {
 		mStringColor = resources.getColor(R.color.string);
 		mBGColor = resources.getColor(R.color.background);
 		mZeroLineColor = resources.getColor(R.color.zero_line);
-		mAxisColors[0] = resources.getColor(R.color.accele_x);
-		//mAxisColors[1] = resources.getColor(R.color.accele_y);
+		//mAxisColors[0] = resources.getColor(R.color.accele_x);
+		mAxisColors[1] = resources.getColor(R.color.accele_y);
 		//mAxisColors[2] = resources.getColor(R.color.accele_z);
 
 		mGraphView = new GraphView(this);
@@ -398,7 +398,7 @@ public class AccelerometerDisplay extends Activity implements OnClickListener {
 			/**Extract xAccel**/
 			double[] xAccel = new double[sensorData.size()];
 			for(AccelData a:sensorData){
-				xAccel[sensorData.indexOf(a)]=a.getX();
+				xAccel[sensorData.indexOf(a)]=a.getY();
 			}
 
             double[] xTimes = new double[sensorData.size()];
@@ -476,7 +476,7 @@ public class AccelerometerDisplay extends Activity implements OnClickListener {
 					e.printStackTrace();
 				}
 			    Bundle b=new Bundle();
-			    Intent i = new Intent(AccelerometerDisplay.this, ShowSpectrumActivity.class);
+			    Intent i = new Intent(AccelerometerDisplay2.this, ShowSpectrumActivity.class);
 			    b.putDoubleArray("frequences", fS);
 			    b.putDoubleArray("amplitudes", magX);
 			    i.putExtras(b);

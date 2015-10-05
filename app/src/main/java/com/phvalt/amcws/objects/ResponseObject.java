@@ -7,6 +7,7 @@ import org.ksoap2.serialization.PropertyInfo;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.Html;
 
 public class ResponseObject implements KvmSerializable,Parcelable{
 	
@@ -200,14 +201,17 @@ public class ResponseObject implements KvmSerializable,Parcelable{
 	}
 
 	public String toString(){
-		return " result : "+this.position +" \n "
+		return "result : "+this.position +" \n "
+               +"itemId : "+this.itemCode+" \n "
 			   +"catalog : "+ this.catalogName+" \n "
-			   +"itemId : "+this.itemCode+" \n "
-			   +this.productURL+"\n"
-			   +"attenuation : "+this.productAttenuation+" - " +"load :"+this.loadPercentage+"%"+" - " +"stiffness : "+this.productStiffness;
-			  
-	}
+			   +this.productURL+" \n "
+			   +"attenuation : "+this.productAttenuation+" - " +"load : "+this.loadPercentage+"%"+" - " +"stiffness : "+this.productStiffness;
+    }
 
+    public String generateUrlLink(){
+
+        return "<a href ="+this.productURL+ ">";
+    }
 	@Override
 	public int describeContents() {
 		// TODO Auto-generated method stub

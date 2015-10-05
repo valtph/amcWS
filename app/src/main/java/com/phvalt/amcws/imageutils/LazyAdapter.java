@@ -3,6 +3,8 @@ package com.phvalt.amcws.imageutils;
 import com.phvalt.amcws.R;
 import android.app.Activity;
 import android.content.Context;
+import android.text.Html;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,10 +44,11 @@ public class LazyAdapter extends BaseAdapter {
         if(convertView==null)
             vi = inflater.inflate(R.layout.item, null);
 
-        TextView text=(TextView)vi.findViewById(R.id.text);;
+        TextView text=(TextView)vi.findViewById(R.id.text);
         ImageView image=(ImageView)vi.findViewById(R.id.image);
         text.setText(name[position]);
         imageLoader.DisplayImage(data[position], image);
+        Linkify.addLinks(text,Linkify.WEB_URLS);
        
         return vi;
     }
